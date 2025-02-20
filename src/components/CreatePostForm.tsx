@@ -1,4 +1,5 @@
 import { Alert } from "@heroui/alert";
+import { Button } from "@heroui/button";
 import { Textarea } from "@heroui/input";
 import { useState } from "react";
 
@@ -7,6 +8,10 @@ const CreatePostForm = () => {
 
   const handleChangeValue = (inputValue: string) => {
     setInputValue(inputValue);
+  };
+
+  const handlePress = () => {
+    alert(inputValue);
   };
 
   return (
@@ -18,6 +23,9 @@ const CreatePostForm = () => {
         onValueChange={handleChangeValue}
       />
       <Alert color={"success"} title={inputValue} />
+      <Button color="primary" onPress={handlePress}>
+        ボタンだよ
+      </Button>
     </>
   );
 };
