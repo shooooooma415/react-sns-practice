@@ -2,7 +2,11 @@ import { Button } from "@heroui/button";
 import { Textarea } from "@heroui/input";
 import { useState } from "react";
 
-const CreatePostForm = () => {
+type CreatePostFormProps = {
+  onCreate: (inputString: string) => void;
+};
+
+const CreatePostForm = (props: CreatePostFormProps) => {
   const [inputValue, setInputValue] = useState("初期だよ");
 
   const handleChangeValue = (inputValue: string) => {
@@ -10,7 +14,7 @@ const CreatePostForm = () => {
   };
 
   const handlePress = () => {
-    alert(inputValue);
+    props.onCreate(inputValue);
   };
 
   return (
