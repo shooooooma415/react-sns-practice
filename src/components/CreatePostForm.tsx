@@ -7,7 +7,7 @@ type CreatePostFormProps = {
 };
 
 const CreatePostForm = (props: CreatePostFormProps) => {
-  const [inputValue, setInputValue] = useState("初期だよ");
+  const [inputValue, setInputValue] = useState("");
 
   const handleChangeValue = (inputValue: string) => {
     setInputValue(inputValue);
@@ -15,6 +15,7 @@ const CreatePostForm = (props: CreatePostFormProps) => {
 
   const handlePress = () => {
     props.onCreate(inputValue);
+    setInputValue("");
   };
 
   return (
@@ -23,6 +24,7 @@ const CreatePostForm = (props: CreatePostFormProps) => {
         className="w-full"
         label="Description"
         placeholder="Enter your description"
+        value={inputValue}
         onValueChange={handleChangeValue}
       />
       <Button color="primary" onPress={handlePress}>
