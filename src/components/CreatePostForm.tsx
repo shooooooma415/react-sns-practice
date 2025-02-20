@@ -1,4 +1,3 @@
-import { Alert } from "@heroui/alert";
 import { Button } from "@heroui/button";
 import { Textarea } from "@heroui/input";
 import { useState } from "react";
@@ -15,18 +14,17 @@ const CreatePostForm = () => {
   };
 
   return (
-    <>
+    <div className="flex flex-col items-end gap-2.5">
       <Textarea
         className="w-full"
         label="Description"
         placeholder="Enter your description"
         onValueChange={handleChangeValue}
       />
-      <Alert color={"success"} title={inputValue} />
       <Button color="primary" onPress={handlePress}>
         ボタンだよ
       </Button>
-    </>
+    </div>
   );
 };
 

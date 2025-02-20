@@ -4,7 +4,9 @@ import CreatePostForm from "@/components/CreatePostForm";
 export default function IndexPage() {
   return (
     <DefaultLayout>
-      <CreatePostForm />
+      <div className="p-4">
+        <CreatePostForm />
+      </div>
     </DefaultLayout>
   );
 }
