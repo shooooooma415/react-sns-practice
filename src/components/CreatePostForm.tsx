@@ -18,6 +18,14 @@ const CreatePostForm = (props: CreatePostFormProps) => {
     setInputValue("");
   };
 
+  const isBlank = () => {
+    if (inputValue == "") {
+      return true;
+    }
+
+    return false;
+  };
+
   return (
     <div className="flex flex-col items-end gap-2.5">
       <Textarea
@@ -27,7 +35,7 @@ const CreatePostForm = (props: CreatePostFormProps) => {
         value={inputValue}
         onValueChange={handleChangeValue}
       />
-      <Button color="primary" onPress={handlePress}>
+      <Button color="primary" isDisabled={isBlank()} onPress={handlePress}>
         ボタンだよ
       </Button>
     </div>
