@@ -12,7 +12,7 @@ type NavBarItem = {
 const LeftSideBar = () => {
   const navBarItems: NavBarItem[] = [
     { icon: <House />, title: "Home", to: "/" },
-    { icon: <PenLine />, title: "Post", to: "/todo" },
+    { icon: <PenLine />, title: "Post", to: "/post" },
   ];
 
   return (
