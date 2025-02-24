@@ -1,22 +1,21 @@
-import * as dotenv from "dotenv";
-
 export class EnvServiceConfig {
-  private config: Record<string, string | undefined>;
+  private static instance: EnvServiceConfig;
 
-  private constructor() {
-    dotenv.config();
-    this.config = process.env;
-  }
+  private constructor() {}
 
-  public get(key: string): string | undefined {
-    return this.config[key];
+  public static getInstance(): EnvServiceConfig {
+    if (!this.instance) {
+      this.instance = new EnvServiceConfig();
+    }
+
+    return this.instance;
   }
 
   public get SupabaseUrl(): string {
-    return this.config.SUPABASE_URL || "";
+    return import.meta.env.VITE_SUPABASE_URL || "";
   }
 
   public get SupabaseKey(): string {
-    return this.config.SUPABASE_ANON_KEY || "";
+    return import.meta.env.VITE_SUPABASE_ANON_KEY || "";
   }
 }

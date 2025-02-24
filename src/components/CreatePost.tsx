@@ -4,9 +4,12 @@ import { Textarea } from "@heroui/input";
 import { Button } from "@heroui/button";
 import { Send } from "lucide-react";
 
+import { supabase } from "@/utils/supabaseClient";
+
 const CreatePost = ({ userAvatar }: { userAvatar: string }) => {
   const [description, setDescription] = useState("");
   const [title, setTitle] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChangeTitle = (value: string) => {
     if (value.length >= 12) {
@@ -22,12 +25,24 @@ const CreatePost = ({ userAvatar }: { userAvatar: string }) => {
 
     return false;
   };
+  const handleSubmit = async () => {
+    if (isBlank()) return;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!title.trim() || !description.trim()) return;
-    setTitle("");
-    setDescription("");
+    try {
+      setLoading(true);
+      const { error } = await supabase
+        .from("todos")
+        .insert([{ title, description }]);
+
+      if (error) {
+        throw error;
+      }
+
+      setTitle("");
+      setDescription("");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -58,9 +73,11 @@ const CreatePost = ({ userAvatar }: { userAvatar: string }) => {
           <Button
             color="primary"
             isDisabled={isBlank()}
+            isLoading={loading}
             startContent={<Send size={16} />}
             type="submit"
             variant="solid"
+            onPress={handleSubmit}
           >
             Post
           </Button>
