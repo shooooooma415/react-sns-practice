@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
+import { ScrollShadow } from "@heroui/scroll-shadow";
 
 import PostCard from "./PostCard";
 
 import { supabase } from "@/utils/supabaseClient";
 
 type Post = {
-  id: number;
   created_at: string;
   title: string;
   description: string;
@@ -21,7 +21,7 @@ const PostCardList = () => {
       try {
         const { data, error } = await supabase
           .from("todos") // ここで `todos` テーブルからデータを取得
-          .select("id, created_at, title, description")
+          .select("created_at, title, description")
           .order("created_at", { ascending: false }); // 最新の投稿を上に
 
         if (error) {
@@ -38,15 +38,15 @@ const PostCardList = () => {
   }, []);
 
   return (
-    <div>
+    <ScrollShadow className="w-full">
       {loading ? (
         <p className="text-center">Loading...</p>
       ) : posts.length === 0 ? (
         <p className="text-center">No posts available</p>
       ) : (
-        posts.map((post) => (
+        posts.map((post, index) => (
           <PostCard
-            key={post.id}
+            key={index}
             created_at={new Date(post.created_at).toLocaleString()}
             description={post.description}
             title={post.title}
@@ -55,7 +55,7 @@ const PostCardList = () => {
           />
         ))
       )}
-    </div>
+    </ScrollShadow>
   );
 };
 
